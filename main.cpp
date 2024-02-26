@@ -1,6 +1,6 @@
 #include<opencv2/opencv.hpp>//OpenCV header to use VideoCapture class//
 #include<iostream>
-
+#include "tensorflow/lite/interpreter.h"
 
 using namespace std;
 using namespace cv;
