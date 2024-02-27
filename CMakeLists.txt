@@ -9,8 +9,10 @@ include_directories("/Users/sebash/tflite-dist/include")
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(webcamera main.cpp
-        Camera.cpp
-        Camera.h
-        ObjectDetectionModel.cpp
-        ObjectDetectionModel.h)
+        src/Camera.cpp
+        headers/Camera.h
+        src/ObjectDetectionModel.cpp
+        headers/ObjectDetectionModel.h
+        src/DatabaseConnection.cpp
+        headers/DatabaseConnection.h)
 target_link_libraries(webcamera ${OpenCV_LIBS})
