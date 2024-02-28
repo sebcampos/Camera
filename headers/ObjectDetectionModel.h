@@ -11,17 +11,23 @@
 #include "tensorflow/lite/string_util.h"
 #include "tensorflow/lite/examples/label_image/get_top_n.h"
 #include "tensorflow/lite/model.h"
+#include <fstream>
+#include <string>
+#include <vector>
 
 using namespace cv;
 
 class ObjectDetectionModel {
     private:
-        const char* modelPath = "path/to/model";
-        std::unique_ptr<tflite::FlatBufferModel> model;
+        int height, width, channels;
+        const char* modelPath = "/Users/sebash/CLionProjects/Camera/resources/1.tflite";
+        std::unique_ptr<tflite::Interpreter> interpreter;
+        std::vector<std::string> loadLabels(std::string labelsFile);
     protected:
-        static Mat* processFrame(Mat* currentFrame);
+        Mat* processFrame(Mat* currentFrame);
     public:
         ObjectDetectionModel();
+        ~ObjectDetectionModel();
 
 };
 
