@@ -26,7 +26,7 @@ void Camera::setCurrentFrame(Mat* newFrame) {
     currentFrame = newFrame;
 }
 
-Mat Camera::getCurrentFrame() {return *currentFrame;}
+Mat* Camera::getCurrentFrame() {return currentFrame;}
 
 void Camera::captureFrame() {
     getVideoCaptureDevice() >> *currentFrame;

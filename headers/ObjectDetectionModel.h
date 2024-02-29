@@ -19,15 +19,16 @@ using namespace cv;
 
 class ObjectDetectionModel {
     private:
-        int height, width, channels;
-        const char* modelPath = "/Users/sebash/CLionProjects/Camera/resources/1.tflite";
-        std::unique_ptr<tflite::Interpreter> interpreter;
-        std::vector<std::string> loadLabels(std::string labelsFile);
-    protected:
-        Mat* processFrame(Mat* currentFrame);
+        static int height, width;
+        static const char* modelPath;
+        static const char* labelsFile;
+        static std::unique_ptr<tflite::Interpreter> interpreter;
+        static std::vector<std::string> loadLabels();
+
     public:
-        ObjectDetectionModel();
-        ~ObjectDetectionModel();
+        static void setUpInterpreter();
+        static void processFrameInPlace(Mat* currentFrame);
+
 
 };
 

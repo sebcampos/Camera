@@ -21,7 +21,7 @@ class Camera {
         explicit Camera(int cameraIndex);
         ~Camera();
         void captureFrame();
-        Mat getCurrentFrame();
+        Mat* getCurrentFrame();
 };
 
 
