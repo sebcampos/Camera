@@ -22,8 +22,12 @@ Camera::~Camera() {
 
 VideoCapture Camera::getVideoCaptureDevice() {return vidCap;}
 
-void Camera::setCurrentFrame(Mat* newFrame) {
-    currentFrame = newFrame;
+int Camera::getWidth() {
+    return (int)vidCap.get(CAP_PROP_FRAME_WIDTH);
+}
+
+int Camera::getHeight() {
+    return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT);
 }
 
 Mat* Camera::getCurrentFrame() {return currentFrame;}

@@ -17,18 +17,20 @@
 
 using namespace cv;
 
+
 class ObjectDetectionModel {
     private:
-        static int height, width;
         static const char* modelPath;
         static const char* labelsFile;
+        static std::unique_ptr<tflite::FlatBufferModel> model;
         static std::unique_ptr<tflite::Interpreter> interpreter;
         static std::vector<std::string> loadLabels();
+        static int cam_width;
+        static int cam_height;
 
     public:
-        static void setUpInterpreter();
+        static void setUpInterpreter(int width, int height);
         static void processFrameInPlace(Mat* currentFrame);
-
 
 };
 

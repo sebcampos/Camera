@@ -14,14 +14,15 @@ class Camera {
     private:
         VideoCapture vidCap;
         Mat* currentFrame;
-    protected:
-        void setCurrentFrame(Mat* newFrame);
     public:
         VideoCapture getVideoCaptureDevice();
         explicit Camera(int cameraIndex);
         ~Camera();
         void captureFrame();
         Mat* getCurrentFrame();
+        int getWidth();
+        int getHeight();
+
 };
 
 
