@@ -6,7 +6,7 @@
 
 
 
-const char* ObjectDetectionModel::modelPath = "/Users/sebash/CLionProjects/webcamera/resources/rpi-model.tflite";
+const char* ObjectDetectionModel::modelPath = "/Users/sebash/CLionProjects/Camera/resources/1.tflite";
 const char* ObjectDetectionModel::labelsFile = "/Users/sebash/CLionProjects/webcamera/resources/labelmap.txt";
 std::unique_ptr<tflite::FlatBufferModel> ObjectDetectionModel::model;
 int ObjectDetectionModel::cam_width;
@@ -28,13 +28,16 @@ void ObjectDetectionModel::setUpInterpreter(int width, int height)
     // Build the interpreter
     tflite::ops::builtin::BuiltinOpResolver resolver;
     tflite::InterpreterBuilder(*model, resolver)(&interpreter);
-
+    //auto input_sigs = interpreter->signature_inputs("shape_signature");
+    auto input_sigs = interpreter->GetInputName(2);
+    std::cout << "wut" << std::endl;
+    // interpreter->signature_outputs("")
 
 }
 
 
 void ObjectDetectionModel::processFrameInPlace(Mat* currentFrame) {
-    interpreter-
+
 }
 
 
