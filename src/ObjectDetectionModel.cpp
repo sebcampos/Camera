@@ -6,7 +6,7 @@
 
 
 
-const char* ObjectDetectionModel::modelPath = "/Users/sebash/CLionProjects/Camera/resources/1.tflite";
+const char* ObjectDetectionModel::modelPath = "../resources/1.tflite";
 const char* ObjectDetectionModel::labelsFile = "/Users/sebash/CLionProjects/webcamera/resources/labelmap.txt";
 std::unique_ptr<tflite::FlatBufferModel> ObjectDetectionModel::model;
 int ObjectDetectionModel::cam_width;
