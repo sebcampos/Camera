@@ -28,16 +28,16 @@ void ObjectDetectionModel::setUpInterpreter(int width, int height)
     // Build the interpreter
     tflite::ops::builtin::BuiltinOpResolver resolver;
     tflite::InterpreterBuilder(*model, resolver)(&interpreter);
-    //auto input_sigs = interpreter->signature_inputs("shape_signature");
-    auto input_sigs = interpreter->GetInputName(2);
+    interpreter->AllocateTensors();
+    auto input_sigs = interpreter->typed_input_tensor<float>(0);
+    // auto input_sigs = interpreter->GetInputName(2);
     std::cout << "wut" << std::endl;
     // interpreter->signature_outputs("")
-
 }
 
 
 void ObjectDetectionModel::processFrameInPlace(Mat* currentFrame) {
-
+    //interpreter->ResizeInputTensor()
 }
 
 
