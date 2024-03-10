@@ -11,7 +11,8 @@ int main() {
 
     namedWindow("Video Player");//Declaring the video to show the video//
     auto* camera = new Camera(0);
-    ObjectDetectionModel::setUpInterpreter(camera->getWidth(), camera->getHeight());
+    auto* x = new ObjectDetectionModel();
+    x->setUpInterpreter(camera->getWidth(), camera->getHeight());
     if (!camera->getVideoCaptureDevice().isOpened()){ //This section prompt an error message if no video stream is found//
         cout << "No video stream detected" << endl;
         system("pause");
