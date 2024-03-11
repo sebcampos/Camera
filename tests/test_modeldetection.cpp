@@ -41,8 +41,8 @@ void testProcessFrame()
     delete camera;
 }
 
-int main()
-{
-    testProcessFrame();
-    return 0;
-}
+//int main()
+//{
+//    testProcessFrame();
+//    return 0;
+//}
