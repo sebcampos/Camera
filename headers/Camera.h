@@ -13,13 +13,13 @@ using namespace std;
 class Camera {
     private:
         VideoCapture vidCap;
-        Mat* currentFrame;
+        Mat currentFrame;
     public:
         VideoCapture getVideoCaptureDevice();
         explicit Camera(int cameraIndex);
         ~Camera();
         void captureFrame();
-        Mat* getCurrentFrame();
+        Mat& getCurrentFrame();
         int getWidth();
         int getHeight();
 

@@ -23,14 +23,18 @@ struct Object{
 };
 
 
-
+/**
+ * inverse of the logit function
+ * @param x
+ * @return
+ */
 float expit(float x) {
     return 1.f / (1.f + expf(-x));
 }
 
 
 //nms
-float iou(Rect& rectA, Rect& rectB)
+float intersectionOverUnion(Rect& rectA, Rect& rectB)
 {
     int x1 = std::max(rectA.x, rectB.x);
     int y1 = std::max(rectA.y, rectB.y);
@@ -45,7 +49,7 @@ float iou(Rect& rectA, Rect& rectB)
     return (o >= 0) ? o : 0;
 }
 
-void nms(vector<Object>& boxes,  const double nms_threshold)
+void nonMaximumSuppression(vector<Object>& boxes,  const double nms_threshold)
 {
     vector<int> scores;
     for(int i = 0; i < boxes.size();i++){
@@ -61,7 +65,7 @@ void nms(vector<Object>& boxes,  const double nms_threshold)
     for(size_t i = 0; i < index.size(); i++){
         if( !del[index[i]]){
             for(size_t j = i+1; j < index.size(); j++){
-                if(iou(boxes[index[i]].rec, boxes[index[j]].rec) > nms_threshold){
+                if(intersectionOverUnion(boxes[index[i]].rec, boxes[index[j]].rec) > nms_threshold){
                     del[index[j]] = true;
                 }
             }
@@ -92,7 +96,7 @@ int main() {
 
     // Load model
     std::unique_ptr<tflite::FlatBufferModel> model =
-            tflite::FlatBufferModel::BuildFromFile("/Users/sebash/CLionProjects/Camera/resources/efficientdet.tflite");
+            tflite::FlatBufferModel::BuildFromFile("../resources/efficientdet.tflite");
     // Build the interpreter
     tflite::ops::builtin::BuiltinOpResolver resolver;
     std::unique_ptr<tflite::Interpreter> interpreter;
@@ -103,13 +107,13 @@ int main() {
     TfLiteTensor* output_locations = nullptr;
     TfLiteTensor* output_classes = nullptr;
     TfLiteTensor* num_detections = nullptr;
-    // TfLiteTensor* scores = nullptr;
+    TfLiteTensor* scores = nullptr;
     //auto cam = cv::VideoCapture(0);
-    auto cam = cv::VideoCapture("/Users/sebash/CLionProjects/Camera/resources/test.jpg");
+    auto cam = cv::VideoCapture("../resources/test.jpg");
 
     std::vector<std::string> labels;
 
-    auto file_name="/Users/sebash/CLionProjects/Camera/resources/cocolabels.txt";
+    auto file_name="../resources/cocolabels.txt";
     std::ifstream input( file_name );
     for( std::string line; getline( input, line ); )
     {
@@ -190,7 +194,7 @@ int main() {
 
 
         }
-        nms(objects,0.5);
+        nonMaximumSuppression(objects,0.5);
         RNG rng(12345);
         std::cout << "size: "<<objects.size() << std::endl;
         for(int l = 0; l < objects.size(); l++)

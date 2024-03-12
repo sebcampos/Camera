@@ -22,15 +22,19 @@ class ObjectDetectionModel {
     private:
         static const char* modelPath;
         static const char* labelsFile;
+        static std::vector<std::string> loadLabels();
         std::unique_ptr<tflite::FlatBufferModel> model;
         std::unique_ptr<tflite::Interpreter> interpreter;
-        std::vector<std::string> loadLabels();
         int cam_width;
         int cam_height;
+        TfLiteTensor* output_locations = nullptr;
+        TfLiteTensor* output_classes = nullptr;
+        TfLiteTensor* num_detections = nullptr;
+        TfLiteTensor* scores = nullptr;
 
     public:
-        void setUpInterpreter(int width, int height);
-        void processFrameInPlace(Mat* currentFrame);
+        ObjectDetectionModel(int width, int height);
+        void processFrameInPlace(Mat& currentFrame);
 
 };
 
