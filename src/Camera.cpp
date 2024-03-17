@@ -7,29 +7,29 @@
 
 Camera::Camera(int cameraIndex)
 {
-     VideoCapture cap(cameraIndex);
+     cv::VideoCapture cap(cameraIndex);
      vidCap = cap;
-     currentFrame = Mat();
-     cout << "Initialized!" << endl;
+     currentFrame = cv::Mat();
+     std::cout << "Initialized!" << std::endl;
 }
 
 Camera::~Camera() {
     vidCap.release();
-    cout << "Released and closed!" << endl;
+    std::cout << "Released and closed!" << std::endl;
 
 }
 
-VideoCapture Camera::getVideoCaptureDevice() {return vidCap;}
+cv::VideoCapture Camera::getVideoCaptureDevice() {return vidCap;}
 
 int Camera::getWidth() {
-    return (int)vidCap.get(CAP_PROP_FRAME_WIDTH);
+    return (int)vidCap.get(cv::CAP_PROP_FRAME_WIDTH);
 }
 
 int Camera::getHeight() {
-    return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT);
+    return (int)vidCap.get(cv::CAP_PROP_FRAME_HEIGHT);
 }
 
-Mat& Camera::getCurrentFrame() {return currentFrame;}
+cv::Mat& Camera::getCurrentFrame() {return currentFrame;}
 
 void Camera::captureFrame() {
     getVideoCaptureDevice() >> currentFrame;

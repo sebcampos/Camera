@@ -8,18 +8,17 @@
 #include<opencv2/opencv.hpp>
 #include<iostream>
 
-using namespace cv;
-using namespace std;
+
 class Camera {
     private:
-        VideoCapture vidCap;
-        Mat currentFrame;
+        cv::VideoCapture vidCap;
+        cv::Mat currentFrame;
     public:
-        VideoCapture getVideoCaptureDevice();
+        cv::VideoCapture getVideoCaptureDevice();
         explicit Camera(int cameraIndex);
         ~Camera();
         void captureFrame();
-        Mat& getCurrentFrame();
+        cv::Mat& getCurrentFrame();
         int getWidth();
         int getHeight();
 

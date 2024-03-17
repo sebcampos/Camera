@@ -7,9 +7,9 @@
 #include <fstream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
-#include <cmath>
 
-using namespace std;
+
+
 
 const char* ObjectDetectionModel::modelPath = "../resources/efficientdet.tflite";
 const char* ObjectDetectionModel::labelsFile = "../resources/cocolabels.txt";
@@ -32,7 +32,7 @@ float expit(float x) {
 
 
 //nms
-float intersectionOverUnion(Rect& rectA, Rect& rectB)
+float intersectionOverUnion(cv::Rect& rectA, cv::Rect& rectB)
 {
     int x1 = std::max(rectA.x, rectB.x);
     int y1 = std::max(rectA.y, rectB.y);
@@ -47,19 +47,21 @@ float intersectionOverUnion(Rect& rectA, Rect& rectB)
     return (o >= 0) ? o : 0;
 }
 
-void nonMaximumSuppression(vector<Object>& boxes,  const double nms_threshold)
+void nonMaximumSuppression(std::vector<Object>& boxes,  const double nms_threshold)
 {
-    vector<int> scores;
+    std::vector<int> scores;
+    scores.reserve(boxes.size());
     for(auto & box : boxes){
-        scores.push_back((int)box.prob);
+            scores.push_back((int)box.prob);
     }
-    vector<int> index;
+    std::vector<int> index;
+    index.reserve(scores.size());
     for(int i = 0; i < scores.size(); ++i){
         index.push_back(i);
     }
     sort(index.begin(), index.end(), [&](int a, int b){
         return scores[a] > scores[b]; });
-    vector<bool> del(scores.size(), false);
+    std::vector<bool> del(scores.size(), false);
     for(size_t i = 0; i < index.size(); i++){
         if( !del[index[i]]){
             for(size_t j = i+1; j < index.size(); j++){
@@ -69,7 +71,7 @@ void nonMaximumSuppression(vector<Object>& boxes,  const double nms_threshold)
             }
         }
     }
-    vector<Object> new_obj;
+    std::vector<Object> new_obj;
     for(const auto i : index){
         Object obj;
         if(!del[i])
@@ -109,9 +111,9 @@ ObjectDetectionModel::ObjectDetectionModel(int width, int height)
 }
 
 
-void ObjectDetectionModel::processFrameInPlace(Mat& currentFrame)
+void ObjectDetectionModel::processFrameInPlace(cv::Mat& currentFrame)
 {
-    Mat frameCopy;
+    cv::Mat frameCopy;
     std::vector<std::string> labels = loadLabels();
     std::vector<float> locations;
     std::vector<float> classes;
@@ -123,7 +125,7 @@ void ObjectDetectionModel::processFrameInPlace(Mat& currentFrame)
     auto modelWidth = interpreter->tensor(input)->dims->data[2];
 
     // resize frame to the correct size for tensorflow processing
-    resize(currentFrame, frameCopy, Size(modelWidth, modelHeight), INTER_NEAREST);
+    resize(currentFrame, frameCopy, cv::Size(modelWidth, modelHeight), cv::INTER_NEAREST);
 
     // copy resized frame to the input tensor
     memcpy(interpreter->typed_input_tensor<uchar>(0), frameCopy.data, frameCopy.total() * frameCopy.elemSize());
@@ -176,14 +178,14 @@ void ObjectDetectionModel::processFrameInPlace(Mat& currentFrame)
 
     }
     nonMaximumSuppression(objects,0.5);
-    RNG rng(12345);
+    cv::RNG rng(12345);
     std::cout << "size: "<<objects.size() << std::endl;
     for (auto object : objects)
     {
         auto score=object.prob;
         std::cout<<"score:"<< score<<std::endl;
-        if (score < 0.60f) continue;
-        Scalar color = Scalar(rng.uniform(0,255), rng.uniform(0, 255), rng.uniform(0, 255));
+        if (score < 0.50f) continue;
+        cv::Scalar color = cv::Scalar(rng.uniform(0,255), rng.uniform(0, 255), rng.uniform(0, 255));
         auto cls = object.class_id;
 
         cv::rectangle(currentFrame, object.rec,color, 1);

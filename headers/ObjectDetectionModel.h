@@ -15,8 +15,6 @@
 #include <string>
 #include <vector>
 
-using namespace cv;
-
 
 class ObjectDetectionModel {
     private:
@@ -34,7 +32,7 @@ class ObjectDetectionModel {
 
     public:
         ObjectDetectionModel(int width, int height);
-        void processFrameInPlace(Mat& currentFrame);
+        void processFrameInPlace(cv::Mat& currentFrame);
 
 };
 

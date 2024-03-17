@@ -2,13 +2,16 @@
 #include "headers/Camera.h"
 #include "headers/ObjectDetectionModel.h"
 #include<iostream>
+#include "headers/SocketServer.h"
 
 
 using namespace std;
 using namespace cv;
 
 int main() {
-
+//    auto* server = new SocketServer();
+//    server->run();
+//    delete server;
     namedWindow("Video Player");//Declaring the video to show the video//
     auto* camera = new Camera(0);
     auto tfModel = new ObjectDetectionModel(camera->getWidth(), camera->getHeight());
