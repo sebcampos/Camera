@@ -103,3 +103,4 @@ void SocketServer::run()
     // closing the socket.
     close(serverSocket);
 }
+
