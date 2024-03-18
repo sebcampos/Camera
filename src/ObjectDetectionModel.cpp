@@ -11,8 +11,8 @@
 
 
 
-const char* ObjectDetectionModel::modelPath = "../resources/efficientdet.tflite";
-const char* ObjectDetectionModel::labelsFile = "../resources/cocolabels.txt";
+const char* ObjectDetectionModel::modelPath = "../resources/1.tflite";
+const char* ObjectDetectionModel::labelsFile = "../resources/labelmap.txt";
 
 struct Object {
     cv::Rect rec;
@@ -125,7 +125,7 @@ void ObjectDetectionModel::processFrameInPlace(cv::Mat& currentFrame)
     auto modelWidth = interpreter->tensor(input)->dims->data[2];
 
     // resize frame to the correct size for tensorflow processing
-    resize(currentFrame, frameCopy, cv::Size(modelWidth, modelHeight), cv::INTER_NEAREST);
+    resize(currentFrame, frameCopy, cv::Size(modelWidth * 3, modelHeight * 3), cv::INTER_NEAREST);
 
     // copy resized frame to the input tensor
     memcpy(interpreter->typed_input_tensor<uchar>(0), frameCopy.data, frameCopy.total() * frameCopy.elemSize());
@@ -184,7 +184,7 @@ void ObjectDetectionModel::processFrameInPlace(cv::Mat& currentFrame)
     {
         auto score=object.prob;
         std::cout<<"score:"<< score<<std::endl;
-        if (score < 0.50f) continue;
+        if (score < 0.60f) continue;
         cv::Scalar color = cv::Scalar(rng.uniform(0,255), rng.uniform(0, 255), rng.uniform(0, 255));
         auto cls = object.class_id;
 

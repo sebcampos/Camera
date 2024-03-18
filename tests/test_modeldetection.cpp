@@ -14,35 +14,27 @@ void takePhoto()
     auto* camera = new Camera(0);
     while (!frameCaptured) { //Taking an everlasting loop to show the video//
         camera->captureFrame();
-        if (!camera->getCurrentFrame()->empty()) { //Breaking the loop if no video frame is detected//
+        if (!camera->getCurrentFrame().empty()) { //Breaking the loop if no video frame is detected//
             frameCaptured = true;
         }
     }
-    imwrite("/Users/sebash/CLionProjects/Camera/resources/test.jpg", *(camera->getCurrentFrame()));
+    imwrite("./test.png", camera->getCurrentFrame());
     delete camera;
 }
 
-void setUp()
-{
-    std::cout << "setting up interpreter" << std::endl;
-    auto* camera = new Camera(0);
-    // ObjectDetectionModel::setUpInterpreter(camera->getWidth(), camera->getHeight());
-    delete camera;
-}
 
 void testProcessFrame()
 {
-    auto* tfModel = new ObjectDetectionModel();
     auto* camera = new Camera(0);
-    tfModel->setUpInterpreter(camera->getWidth(), camera->getHeight());
-    Mat image = imread("/Users/sebash/CLionProjects/Camera/resources/test.jpg",  IMREAD_GRAYSCALE);
-    tfModel->processFrameInPlace(&image);
+    auto* tfModel = new ObjectDetectionModel(camera->getWidth(), camera->getHeight());
+    cv::Mat image = imread("/Users/sebash/CLionProjects/Camera/resources/test.jpg",  cv::IMREAD_GRAYSCALE);
+    tfModel->processFrameInPlace(image);
     delete tfModel;
     delete camera;
 }
 
-//int main()
-//{
-//    testProcessFrame();
-//    return 0;
-//}
+int main()
+{
+    takePhoto();
+    return 0;
+}
