@@ -7,20 +7,27 @@
 
 #include<opencv2/opencv.hpp>
 #include<iostream>
+#include "ObjectDetectionModel.h"
 
+using namespace cv;
 
 class Camera {
     private:
-        cv::VideoCapture vidCap;
-        cv::Mat currentFrame;
-    public:
-        cv::VideoCapture getVideoCaptureDevice();
-        explicit Camera(int cameraIndex);
-        ~Camera();
-        void captureFrame();
-        cv::Mat& getCurrentFrame();
+        VideoCapture vidCap;
+        Mat* currentFrame;
+        Mat outputFrame;
+        ObjectDetectionModel* tfLiteModel;
+        VideoCapture getVideoCaptureDevice();
+        bool stopFeedFlag = false;
         int getWidth();
         int getHeight();
+        void captureFrame();
+    public:
+        Camera(int cameraIndex);
+        ~Camera();
+        void processFeed();
+        void stopFeed();
+        Mat& getCurrentFrame();
 
 };
 

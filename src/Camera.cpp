@@ -4,34 +4,81 @@
 
 #include "../headers/Camera.h"
 
+using namespace cv;
 
+/**
+ * Sets up an open cv VideoCapture instance, and an instance of
+ * the object detection model
+ * @param cameraIndex
+ */
 Camera::Camera(int cameraIndex)
 {
-     cv::VideoCapture cap(cameraIndex);
+     VideoCapture cap(cameraIndex);
      vidCap = cap;
-     currentFrame = cv::Mat();
-     std::cout << "Initialized!" << std::endl;
+     currentFrame = new Mat();
+     outputFrame = Mat();
+     tfLiteModel = new ObjectDetectionModel(getWidth(), getHeight());
+     std::cout << "Initialized camera and detection model" << std::endl;
 }
 
-Camera::~Camera() {
+/**
+ * releases the VideoCapture instance and deletes the
+ * current frame & object detection model
+ */
+Camera::~Camera()
+{
     vidCap.release();
+    delete tfLiteModel;
+    delete currentFrame;
     std::cout << "Released and closed!" << std::endl;
 
 }
 
-cv::VideoCapture Camera::getVideoCaptureDevice() {return vidCap;}
 
 int Camera::getWidth() {
-    return (int)vidCap.get(cv::CAP_PROP_FRAME_WIDTH);
+    return (int)vidCap.get(CAP_PROP_FRAME_WIDTH) / 6;
 }
 
 int Camera::getHeight() {
-    return (int)vidCap.get(cv::CAP_PROP_FRAME_HEIGHT);
+    return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT) / 6;
 }
 
-cv::Mat& Camera::getCurrentFrame() {return currentFrame;}
+Mat& Camera::getCurrentFrame() {
+    return outputFrame;
+}
 
 void Camera::captureFrame() {
-    getVideoCaptureDevice() >> currentFrame;
+    vidCap >> *currentFrame;
+    resize(*currentFrame, *currentFrame, Size(getWidth(), getHeight()));
+    cvtColor(*currentFrame, *currentFrame, COLOR_BGR2RGB);
 }
 
+
+void Camera::processFeed()
+{
+    if (!vidCap.isOpened()){ //This section prompt an error message if no video stream is found//
+        std::cout << "No video stream detected" << std::endl;
+        system("pause");
+        return;
+    }
+    while (true){ //Taking an everlasting loop to show the video//
+        captureFrame();
+        if (currentFrame->empty()){ //Breaking the loop if no video frame is detected//
+            break;
+        }
+        tfLiteModel->processFrameInPlace(*currentFrame);
+        outputFrame = currentFrame->clone();
+        if (stopFeedFlag)
+        {
+            break;
+        }
+
+    }
+}
+
+
+
+void Camera::stopFeed()
+{
+    stopFeedFlag = true;
+}

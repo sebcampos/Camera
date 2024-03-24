@@ -19,6 +19,7 @@ add_executable(webcamera
         src/ObjectDetectionModel.cpp
         src/SocketServer.cpp)
 #        local_test.cpp)
+#        tests/test_modeldetection.cpp)
 #        tests/test_2.cpp
 
 #

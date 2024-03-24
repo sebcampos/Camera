@@ -11,21 +11,24 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <unistd.h>
-
+#include <thread>
 
 
 class SocketServer {
 public:
     bool shutDown;
     int serverSocket;
-    int connections[4] = {-1, -1, -1, -1};
+    int connections[4] = {0, 0, 0, 0};
+    std::thread* threads[4];
     Camera* camera;
     sockaddr_in serverAddress{};
-    SocketServer(Camera* camera);
+    SocketServer();
+    ~SocketServer();
     void run();
 private:
     int getAvailableConnection();
     void startStream(int streamIndex, int clientSocket);
+
 
 };
 

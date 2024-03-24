@@ -10,8 +10,8 @@
 
 using namespace std;
 using namespace cv;
-const char* ObjectDetectionModel::modelPath = "../resources/efficientdet.tflite";
-const char* ObjectDetectionModel::labelsFile = "../resources/cocolabels.txt";
+const char* ObjectDetectionModel::modelPath = "../resources/1.tflite";
+const char* ObjectDetectionModel::labelsFile = "../resources/labelmap.txt";
 
 struct Object {
     cv::Rect rec;
@@ -108,6 +108,7 @@ ObjectDetectionModel::ObjectDetectionModel(int width, int height)
 }
 
 
+
 void ObjectDetectionModel::processFrameInPlace(Mat& currentFrame)
 {
     Mat frameCopy;
@@ -180,10 +181,11 @@ void ObjectDetectionModel::processFrameInPlace(Mat& currentFrame)
     for (auto object : objects)
     {
         auto score=object.prob;
-        std::cout<<"score:"<< score<<std::endl;
         if (score < 0.60f) continue;
+        std::cout<<"score:"<< score<<std::endl;
         Scalar color = Scalar(rng.uniform(0,255), rng.uniform(0, 255), rng.uniform(0, 255));
         auto cls = object.class_id;
+        std::cout << labels[cls+1] << std::endl;
 
         cv::rectangle(currentFrame, object.rec,color, 1);
         cv::putText(currentFrame, labels[cls+1], cv::Point(object.rec.x, object.rec.y - 5),
@@ -213,9 +215,7 @@ std::vector<std::string> ObjectDetectionModel::loadLabels() {
 }
 
 
-////
-//// Created by Sebastian Campos on 2/25/24.
-////
+
 //
 //#include "../headers/ObjectDetectionModel.h"
 //#include <iostream>
