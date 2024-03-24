@@ -5,7 +5,7 @@
 #ifndef WEBCAMERA_CAMERA_H
 #define WEBCAMERA_CAMERA_H
 
-#include<opencv4/opencv2/opencv.hpp>
+#include<opencv2/opencv.hpp>
 #include<iostream>
 
 
