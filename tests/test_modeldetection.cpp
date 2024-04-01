@@ -6,19 +6,15 @@
 #include "../headers/Camera.h"
 
 
-
 void takePhoto()
 {
     bool frameCaptured = false;
     std::cout << "Taking screenshot for processing" << std::endl;
     auto* camera = new Camera(0);
-    while (!frameCaptured) { //Taking an everlasting loop to show the video//
-        camera->captureFrame();
-        if (!camera->getInputFrame().empty()) { //Breaking the loop if no video frame is detected//
-            frameCaptured = true;
-        }
-    }
-    imwrite("./test.png", camera->getInputFrame());
+    cv::Mat out = cv::Mat();
+    cv::Mat* result = camera->processFeed(new cv::Mat());
+    cv::cvtColor(*result, out, cv::COLOR_BGR2RGB);
+    imwrite("./test.png", out);
     delete camera;
 }
 
@@ -29,13 +25,14 @@ void testProcessFrame()
     auto* tfModel = new ObjectDetectionModel(camera->getWidth(), camera->getHeight());
     cv::Mat image = imread("./test.png",  cv::IMREAD_GRAYSCALE);
     tfModel->processFrameInPlace(image);
-    imwrite("./test.png", camera->getInputFrame());
+    imwrite("./test_det.png", *(camera->getInputFrame()));
     delete tfModel;
     delete camera;
 }
 
 int main()
 {
-    testProcessFrame();
+    takePhoto();
+    //testProcessFrame();
     return 0;
 }

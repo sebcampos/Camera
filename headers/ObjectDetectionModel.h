@@ -25,6 +25,7 @@ class ObjectDetectionModel {
         std::unique_ptr<tflite::Interpreter> interpreter;
         int cam_width;
         int cam_height;
+        std::vector<std::string> tracking;
         TfLiteTensor* output_locations = nullptr;
         TfLiteTensor* output_classes = nullptr;
         TfLiteTensor* num_detections = nullptr;
@@ -33,6 +34,9 @@ class ObjectDetectionModel {
     public:
         ObjectDetectionModel(int width, int height);
         void processFrameInPlace(cv::Mat& currentFrame);
+        void addToTracking(std::string label);
+        void removeFromTracking(std::string label);
+        bool isInTracking();
 
 };
 

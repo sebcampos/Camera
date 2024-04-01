@@ -28,6 +28,7 @@ SocketServer::SocketServer()
     // binding socket.
     int bindNum = bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress));
     std::cout << "Bind num: " << bindNum << std::endl;
+
     // listening to the assigned socket
     listen(serverSocket, 5);
 
@@ -36,6 +37,7 @@ SocketServer::SocketServer()
 SocketServer::~SocketServer()
 {
         delete camera;
+        close(serverSocket);
 }
 
 
@@ -43,7 +45,7 @@ int SocketServer::getAvailableConnection()
 {
     for (int i = 0; i < 4; i++)
     {
-        if (connections[i] == 0)
+        if (connections[i] == -1)
         {
             return i;
         }
@@ -52,22 +54,26 @@ int SocketServer::getAvailableConnection()
 }
 
 
-void handleResponse(int (&connections)[4], int streamIndex, char responseBuffer[1024])
+static bool handleResponse(int (&connections)[4], int streamIndex, char (&responseBuffer)[1024])
 {
     if (strcmp(responseBuffer, "close") == 0)
     {
-        connections[streamIndex] = 0;
+        connections[streamIndex] = -1;
+        return false;
     }
     else if (strcmp(responseBuffer, "refresh") == 0)
     {
         // refresh current data
     }
+    for (char & c : responseBuffer) {c = '\0';}
+    return true;
 }
 
 void SocketServer::startStream(int streamIndex, int clientSocket)
 {
     std::cout << "connecting to client at index `" << streamIndex << "`" << std::endl;
     connections[streamIndex] = clientSocket;
+    bool close = false;
     char responseBuffer[1024] = {0};
     while (connections[streamIndex] == clientSocket)
     {
@@ -81,22 +87,17 @@ void SocketServer::startStream(int streamIndex, int clientSocket)
         // copying the contents of the
         // string to char array
         strcpy(char_array, message.c_str());
-
-        std::cout << "sending size to client at index `" << streamIndex << "`" << std::endl;
         send(clientSocket, char_array, std::strlen(char_array), 0);
-
-        std::cout << "receiving response from  `" << streamIndex << "`" << std::endl;
-        recv(clientSocket, responseBuffer, sizeof(responseBuffer), 0);
-        handleResponse(connections, streamIndex, responseBuffer);
-
-        std::cout << "sending image to client at index `" << streamIndex << "`" << std::endl;
-        send(clientSocket, buffer.data(), buffer.size(), 0);
-
-        std::cout << "receiving response from  `" << streamIndex << "`" << std::endl;
-        recv(clientSocket, responseBuffer, sizeof(responseBuffer), 0);
-        handleResponse(connections, streamIndex, responseBuffer);
-
         delete[] char_array;
+
+        recv(clientSocket, responseBuffer, sizeof(responseBuffer), 0);
+        if (!handleResponse(connections, streamIndex, responseBuffer))
+            continue;
+
+        send(clientSocket, buffer.data(), buffer.size(), 0);
+        recv(clientSocket, responseBuffer, sizeof(responseBuffer), 0);
+        if (!handleResponse(connections, streamIndex, responseBuffer))
+            continue;
     }
     std::cout << "disconnecting client at index `" << streamIndex << "`" << std::endl;
 
@@ -141,7 +142,7 @@ void SocketServer::run()
 
     for (int i = 0; i < 4; i++)
     {
-        if (connections[i] == 0)
+        if (connections[i] == -1)
         {
             continue;
         }
@@ -153,6 +154,5 @@ void SocketServer::run()
     // closing the socket.
     camera->stopFeed();
     cameraThread.join();
-    close(serverSocket);
 }
 

@@ -34,36 +34,59 @@ Camera::~Camera()
 
 }
 
-
+/**
+ * gets the opencv capture device width / 6
+ * @return integer
+ */
 int Camera::getWidth() {
-    return (int)vidCap.get(CAP_PROP_FRAME_WIDTH) / 6;
+    return (int)vidCap.get(CAP_PROP_FRAME_WIDTH) / 5;
 }
 
+/**
+ * gets the opencv capture device height / 6
+ * @return integer
+ */
 int Camera::getHeight() {
-    return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT) / 6;
+    return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT) / 5;
 }
 
+/**
+ * Returns a refrence to the current outputFrame
+ * @return Mat instanc, result of object detection and video capture
+ */
 Mat& Camera::getCurrentFrame() {
     return outputFrame;
 }
 
+/**
+ * Captures a frame, writing it to the currentFrame, resizes the frame,
+ * and colors the frame inplace.
+ */
 void Camera::captureFrame() {
     vidCap >> *currentFrame;
     resize(*currentFrame, *currentFrame, Size(getWidth(), getHeight()));
-    cvtColor(*currentFrame, *currentFrame, COLOR_BGR2RGB);
+//    cvtColor(*currentFrame, *currentFrame, COLOR_BGR2RGB);
 }
 
-
+/**
+ * this method is launched as a separate thread by the socket server class.
+ * it reads in frames, processes them through the object
+ * detection model, and then writes them to the outputFrame while the stopFeedFlag
+ * is set to false
+ */
 void Camera::processFeed()
 {
-    if (!vidCap.isOpened()){ //This section prompt an error message if no video stream is found//
+    if (!vidCap.isOpened())
+    {
         std::cout << "No video stream detected" << std::endl;
         system("pause");
         return;
     }
-    while (true){ //Taking an everlasting loop to show the video//
+    while (true)
+    {
         captureFrame();
-        if (currentFrame->empty()){ //Breaking the loop if no video frame is detected//
+        if (currentFrame->empty())
+        {
             break;
         }
         tfLiteModel->processFrameInPlace(*currentFrame);
@@ -77,7 +100,29 @@ void Camera::processFeed()
 }
 
 
+/**
+ *
+ */
+ void Camera::startRecording()
+{
+     recording = true;
 
+     // register object detection event
+
+    VideoWriter video = video("filename.avi", ("out.avi",CV_FOURCC('M','J','P','G'),10, Size(getWidth(),getHeight()),true));
+
+    // TODO start recording
+     while (recording)
+     {
+         // write frame to fil
+
+         video.write(getCurrentFrame());
+     }
+}
+
+/**
+ * Called to set stopFeedFlag to True, stopping the ProcessFeed thread.
+ */
 void Camera::stopFeed()
 {
     stopFeedFlag = true;

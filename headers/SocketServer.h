@@ -18,7 +18,7 @@ class SocketServer {
 public:
     bool shutDown;
     int serverSocket;
-    int connections[4] = {0, 0, 0, 0};
+    int connections[4] = {-1, -1, -1, -1};
     std::thread* threads[4];
     Camera* camera;
     sockaddr_in serverAddress{};

@@ -16,8 +16,8 @@ class Camera {
         VideoCapture vidCap;
         Mat* currentFrame;
         Mat outputFrame;
+        bool recording = false;
         ObjectDetectionModel* tfLiteModel;
-        VideoCapture getVideoCaptureDevice();
         bool stopFeedFlag = false;
         int getWidth();
         int getHeight();
@@ -27,6 +27,8 @@ class Camera {
         ~Camera();
         void processFeed();
         void stopFeed();
+        void startRecording();
+        void stopRecording();
         Mat& getCurrentFrame();
 
 };

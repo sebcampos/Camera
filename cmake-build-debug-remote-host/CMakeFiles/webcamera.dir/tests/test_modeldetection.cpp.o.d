@@ -1,7 +1,7 @@
-CMakeFiles/webcamera.dir/src/SocketServer.cpp.o: \
- /tmp/tmp.XeUZuktbUI/src/SocketServer.cpp /usr/include/stdc-predef.h \
- /tmp/tmp.XeUZuktbUI/src/../headers/SocketServer.h \
- /tmp/tmp.XeUZuktbUI/src/../headers/Camera.h \
+CMakeFiles/webcamera.dir/tests/test_modeldetection.cpp.o: \
+ /tmp/tmp.XeUZuktbUI/tests/test_modeldetection.cpp \
+ /usr/include/stdc-predef.h \
+ /tmp/tmp.XeUZuktbUI/tests/../headers/ObjectDetectionModel.h \
  /usr/local/include/opencv4/opencv2/opencv.hpp \
  /usr/local/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/local/include/opencv4/opencv2/core.hpp \
@@ -364,7 +364,6 @@ CMakeFiles/webcamera.dir/src/SocketServer.cpp.o: \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
- /tmp/tmp.XeUZuktbUI/src/../headers/ObjectDetectionModel.h \
  /home/sebash/tflite-dist/include/tensorflow/lite/interpreter.h \
  /home/sebash/tflite-dist/include/tensorflow/lite/core/interpreter.h \
  /usr/include/c++/13/atomic \
@@ -450,22 +449,6 @@ CMakeFiles/webcamera.dir/src/SocketServer.cpp.o: \
  /usr/include/c++/13/fstream \
  /usr/include/aarch64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/aarch64-linux-gnu/c++/13/bits/c++io.h \
- /usr/include/c++/13/bits/fstream.tcc /usr/include/netinet/in.h \
- /usr/include/aarch64-linux-gnu/sys/socket.h \
- /usr/include/aarch64-linux-gnu/bits/types/struct_iovec.h \
- /usr/include/aarch64-linux-gnu/bits/socket.h \
- /usr/include/aarch64-linux-gnu/bits/socket_type.h \
- /usr/include/aarch64-linux-gnu/bits/sockaddr.h \
- /usr/include/aarch64-linux-gnu/asm/socket.h \
- /usr/include/asm-generic/socket.h /usr/include/linux/posix_types.h \
- /usr/include/linux/stddef.h \
- /usr/include/aarch64-linux-gnu/asm/posix_types.h \
- /usr/include/asm-generic/posix_types.h \
- /usr/include/aarch64-linux-gnu/asm/bitsperlong.h \
- /usr/include/asm-generic/bitsperlong.h \
- /usr/include/aarch64-linux-gnu/asm/sockios.h \
- /usr/include/asm-generic/sockios.h \
- /usr/include/aarch64-linux-gnu/bits/types/struct_osockaddr.h \
- /usr/include/aarch64-linux-gnu/bits/in.h /usr/include/c++/13/thread \
- /usr/include/c++/13/bits/std_thread.h \
- /usr/include/c++/13/bits/this_thread_sleep.h
+ /usr/include/c++/13/bits/fstream.tcc \
+ /tmp/tmp.XeUZuktbUI/tests/../headers/Camera.h \
+ /tmp/tmp.XeUZuktbUI/tests/../headers/ObjectDetectionModel.h
