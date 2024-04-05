@@ -14,7 +14,7 @@
 
 class HttpClient {
 public:
-    static void createObjectDetectionEvent(int objectIndex);
+    static std::string createObjectDetectionEvent(int objectIndex);
     static void updateObjectDetectionEvent();
 
 };

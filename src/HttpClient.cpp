@@ -3,6 +3,7 @@
 //
 
 #include "../headers/HttpClient.h"
+#include <map>
 
 
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
@@ -11,7 +12,21 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-void HttpClient::createObjectDetectionEvent(int objectIndex)
+static std::map<std::string, std::string> parseJson(std::string rawJson)
+{
+    std::map<std::string, std::string> res;
+    std::string val = "";
+    bool foundKey = false;
+    bool foundValue = false;
+    for (char c : rawJson)
+    {
+        if (c == '"')
+    }
+    return res;
+
+}
+
+std::string HttpClient::createObjectDetectionEvent(int objectIndex)
 {
     std::ostringstream payload;
     payload << "{\"object_index\": " << objectIndex << "}";
@@ -42,4 +57,6 @@ void HttpClient::createObjectDetectionEvent(int objectIndex)
     hnd = NULL;
     curl_slist_free_all(slist1);
     slist1 = NULL;
+    std::map<std::string, std::string> res = parseJson(readBuffer);
+    return res["event_id"];
 }
