@@ -3,7 +3,7 @@
 //
 
 #include "../headers/ObjectDetectionModel.h"
-#include "../headers/Camera.h"
+#include "../headers/StreamCamera.h"
 
 
 void takePhoto()

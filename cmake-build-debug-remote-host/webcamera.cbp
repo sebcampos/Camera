@@ -24,7 +24,6 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/sebash/tflite-dist/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 					<Add directory="/usr/include/c++/13"/>
 					<Add directory="/usr/include/aarch64-linux-gnu/c++/13"/>
@@ -48,7 +47,6 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/home/sebash/tflite-dist/include"/>
 					<Add directory="/usr/local/include/opencv4"/>
 					<Add directory="/usr/include/c++/13"/>
 					<Add directory="/usr/include/aarch64-linux-gnu/c++/13"/>
@@ -92,10 +90,16 @@
 		<Unit filename="/tmp/tmp.XeUZuktbUI/src/Camera.cpp">
 			<Option target="webcamera"/>
 		</Unit>
+		<Unit filename="/tmp/tmp.XeUZuktbUI/src/HttpClient.cpp">
+			<Option target="webcamera"/>
+		</Unit>
 		<Unit filename="/tmp/tmp.XeUZuktbUI/src/ObjectDetectionModel.cpp">
 			<Option target="webcamera"/>
 		</Unit>
 		<Unit filename="/tmp/tmp.XeUZuktbUI/src/SocketServer.cpp">
+			<Option target="webcamera"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.XeUZuktbUI/tests/test_http_client.cpp">
 			<Option target="webcamera"/>
 		</Unit>
 		<Unit filename="/tmp/tmp.XeUZuktbUI/CMakeLists.txt">

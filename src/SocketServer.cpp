@@ -15,7 +15,7 @@ SocketServer::SocketServer()
 {
 
     shutDown = false;
-    camera = new Camera(0);
+    camera = new StreamCamera(0);
 
     // creating socket
     serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -110,7 +110,7 @@ void SocketServer::startStream(int streamIndex, int clientSocket)
 void SocketServer::run()
 {
     std::cout << "starting camera thread" << std::endl;
-    std::thread cameraThread = std::thread(&Camera::processFeed, camera);
+    std::thread cameraThread = std::thread(&StreamCamera::processFeed, camera);
     std::cout << "starting server" << std::endl;
     while (!shutDown) {
         // accepting connection request

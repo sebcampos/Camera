@@ -2,8 +2,8 @@
 // Created by Sebastian Campos on 2/25/24.
 //
 
-#ifndef WEBCAMERA_CAMERA_H
-#define WEBCAMERA_CAMERA_H
+#ifndef WEBCAMERA_STREAMCAMERA_H
+#define WEBCAMERA_STREAMCAMERA_H
 
 #include<opencv2/opencv.hpp>
 #include<iostream>
@@ -11,7 +11,7 @@
 
 using namespace cv;
 
-class Camera {
+class StreamCamera {
     private:
         VideoCapture vidCap;
         Mat* currentFrame;
@@ -23,15 +23,15 @@ class Camera {
         int getHeight();
         void captureFrame();
     public:
-        Camera(int cameraIndex);
-        ~Camera();
+        StreamCamera(int cameraIndex);
+        ~StreamCamera();
         void processFeed();
         void stopFeed();
-        void startRecording();
+        void startRecording(std::string fileName);
         void stopRecording();
         Mat& getCurrentFrame();
 
 };
 
 
-#endif //WEBCAMERA_CAMERA_H
+#endif //WEBCAMERA_STREAMCAMERA_H

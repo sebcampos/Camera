@@ -81,12 +81,12 @@ clean: CMakeFiles/webcamera.dir/clean
 CMakeFiles/webcamera.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=1,2,3,4,5 "Built target webcamera"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target webcamera"
 .PHONY : CMakeFiles/webcamera.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/webcamera.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/webcamera.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles 0
 .PHONY : CMakeFiles/webcamera.dir/rule

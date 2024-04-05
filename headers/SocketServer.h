@@ -5,7 +5,7 @@
 #ifndef WEBCAMERA_SOCKETSERVER_H
 #define WEBCAMERA_SOCKETSERVER_H
 
-#include "Camera.h"
+#include "StreamCamera.h"
 #include <cstring>
 #include <iostream>
 #include <netinet/in.h>
@@ -20,7 +20,7 @@ public:
     int serverSocket;
     int connections[4] = {-1, -1, -1, -1};
     std::thread* threads[4];
-    Camera* camera;
+    StreamCamera* camera;
     sockaddr_in serverAddress{};
     SocketServer();
     ~SocketServer();

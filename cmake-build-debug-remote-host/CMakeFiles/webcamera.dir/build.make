@@ -125,12 +125,42 @@ CMakeFiles/webcamera.dir/src/SocketServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/webcamera.dir/src/SocketServer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.XeUZuktbUI/src/SocketServer.cpp -o CMakeFiles/webcamera.dir/src/SocketServer.cpp.s
 
+CMakeFiles/webcamera.dir/src/HttpClient.cpp.o: CMakeFiles/webcamera.dir/flags.make
+CMakeFiles/webcamera.dir/src/HttpClient.cpp.o: /tmp/tmp.XeUZuktbUI/src/HttpClient.cpp
+CMakeFiles/webcamera.dir/src/HttpClient.cpp.o: CMakeFiles/webcamera.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/webcamera.dir/src/HttpClient.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webcamera.dir/src/HttpClient.cpp.o -MF CMakeFiles/webcamera.dir/src/HttpClient.cpp.o.d -o CMakeFiles/webcamera.dir/src/HttpClient.cpp.o -c /tmp/tmp.XeUZuktbUI/src/HttpClient.cpp
+
+CMakeFiles/webcamera.dir/src/HttpClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/webcamera.dir/src/HttpClient.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.XeUZuktbUI/src/HttpClient.cpp > CMakeFiles/webcamera.dir/src/HttpClient.cpp.i
+
+CMakeFiles/webcamera.dir/src/HttpClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/webcamera.dir/src/HttpClient.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.XeUZuktbUI/src/HttpClient.cpp -o CMakeFiles/webcamera.dir/src/HttpClient.cpp.s
+
+CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o: CMakeFiles/webcamera.dir/flags.make
+CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o: /tmp/tmp.XeUZuktbUI/tests/test_http_client.cpp
+CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o: CMakeFiles/webcamera.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o -MF CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o.d -o CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o -c /tmp/tmp.XeUZuktbUI/tests/test_http_client.cpp
+
+CMakeFiles/webcamera.dir/tests/test_http_client.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/webcamera.dir/tests/test_http_client.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.XeUZuktbUI/tests/test_http_client.cpp > CMakeFiles/webcamera.dir/tests/test_http_client.cpp.i
+
+CMakeFiles/webcamera.dir/tests/test_http_client.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/webcamera.dir/tests/test_http_client.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.XeUZuktbUI/tests/test_http_client.cpp -o CMakeFiles/webcamera.dir/tests/test_http_client.cpp.s
+
 # Object files for target webcamera
 webcamera_OBJECTS = \
 "CMakeFiles/webcamera.dir/main.cpp.o" \
 "CMakeFiles/webcamera.dir/src/Camera.cpp.o" \
 "CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o" \
-"CMakeFiles/webcamera.dir/src/SocketServer.cpp.o"
+"CMakeFiles/webcamera.dir/src/SocketServer.cpp.o" \
+"CMakeFiles/webcamera.dir/src/HttpClient.cpp.o" \
+"CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o"
 
 # External object files for target webcamera
 webcamera_EXTERNAL_OBJECTS =
@@ -139,6 +169,8 @@ webcamera: CMakeFiles/webcamera.dir/main.cpp.o
 webcamera: CMakeFiles/webcamera.dir/src/Camera.cpp.o
 webcamera: CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o
 webcamera: CMakeFiles/webcamera.dir/src/SocketServer.cpp.o
+webcamera: CMakeFiles/webcamera.dir/src/HttpClient.cpp.o
+webcamera: CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o
 webcamera: CMakeFiles/webcamera.dir/build.make
 webcamera: /usr/local/lib/libopencv_gapi.so.4.9.0
 webcamera: /usr/local/lib/libopencv_highgui.so.4.9.0
@@ -157,7 +189,7 @@ webcamera: /usr/local/lib/libopencv_flann.so.4.9.0
 webcamera: /usr/local/lib/libopencv_imgproc.so.4.9.0
 webcamera: /usr/local/lib/libopencv_core.so.4.9.0
 webcamera: CMakeFiles/webcamera.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable webcamera"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable webcamera"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/webcamera.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

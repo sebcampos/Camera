@@ -5,10 +5,18 @@
 #ifndef WEBCAMERA_HTTPCLIENT_H
 #define WEBCAMERA_HTTPCLIENT_H
 
+#include <sstream>
+#include <string>
+#include <iostream>
+
+#include <stdio.h>
+#include <curl/curl.h>
 
 class HttpClient {
 public:
-    void sendObjectDetectionEvent();
+    static void createObjectDetectionEvent(int objectIndex);
+    static void updateObjectDetectionEvent();
+
 };
 
 

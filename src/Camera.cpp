@@ -2,7 +2,7 @@
 // Created by Sebastian Campos on 2/25/24.
 //
 
-#include "../headers/Camera.h"
+#include "../headers/StreamCamera.h"
 
 using namespace cv;
 
@@ -11,7 +11,7 @@ using namespace cv;
  * the object detection model
  * @param cameraIndex
  */
-Camera::Camera(int cameraIndex)
+StreamCamera::StreamCamera(int cameraIndex)
 {
      VideoCapture cap(cameraIndex);
      vidCap = cap;
@@ -25,7 +25,7 @@ Camera::Camera(int cameraIndex)
  * releases the VideoCapture instance and deletes the
  * current frame & object detection model
  */
-Camera::~Camera()
+StreamCamera::~StreamCamera()
 {
     vidCap.release();
     delete tfLiteModel;
@@ -38,7 +38,7 @@ Camera::~Camera()
  * gets the opencv capture device width / 6
  * @return integer
  */
-int Camera::getWidth() {
+int StreamCamera::getWidth() {
     return (int)vidCap.get(CAP_PROP_FRAME_WIDTH) / 5;
 }
 
@@ -46,7 +46,7 @@ int Camera::getWidth() {
  * gets the opencv capture device height / 6
  * @return integer
  */
-int Camera::getHeight() {
+int StreamCamera::getHeight() {
     return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT) / 5;
 }
 
@@ -54,7 +54,7 @@ int Camera::getHeight() {
  * Returns a refrence to the current outputFrame
  * @return Mat instanc, result of object detection and video capture
  */
-Mat& Camera::getCurrentFrame() {
+Mat& StreamCamera::getCurrentFrame() {
     return outputFrame;
 }
 
@@ -62,7 +62,7 @@ Mat& Camera::getCurrentFrame() {
  * Captures a frame, writing it to the currentFrame, resizes the frame,
  * and colors the frame inplace.
  */
-void Camera::captureFrame() {
+void StreamCamera::captureFrame() {
     vidCap >> *currentFrame;
     resize(*currentFrame, *currentFrame, Size(getWidth(), getHeight()));
 //    cvtColor(*currentFrame, *currentFrame, COLOR_BGR2RGB);
@@ -74,7 +74,7 @@ void Camera::captureFrame() {
  * detection model, and then writes them to the outputFrame while the stopFeedFlag
  * is set to false
  */
-void Camera::processFeed()
+void StreamCamera::processFeed()
 {
     if (!vidCap.isOpened())
     {
@@ -103,19 +103,17 @@ void Camera::processFeed()
 /**
  *
  */
- void Camera::startRecording()
+ void StreamCamera::startRecording(std::string fileName)
 {
      recording = true;
 
      // register object detection event
-
-    VideoWriter video = video("filename.avi", ("out.avi",CV_FOURCC('M','J','P','G'),10, Size(getWidth(),getHeight()),true));
+    VideoWriter video("fileName", VideoWriter::fourcc('M','J','P','G'), 10, Size(getWidth(),getHeight()), true);
 
     // TODO start recording
      while (recording)
      {
-         // write frame to fil
-
+         // write frame to file
          video.write(getCurrentFrame());
      }
 }
@@ -123,7 +121,7 @@ void Camera::processFeed()
 /**
  * Called to set stopFeedFlag to True, stopping the ProcessFeed thread.
  */
-void Camera::stopFeed()
+void StreamCamera::stopFeed()
 {
     stopFeedFlag = true;
 }

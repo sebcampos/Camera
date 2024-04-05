@@ -10,8 +10,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/tmp/tmp.XeUZuktbUI/main.cpp" "CMakeFiles/webcamera.dir/main.cpp.o" "gcc" "CMakeFiles/webcamera.dir/main.cpp.o.d"
   "/tmp/tmp.XeUZuktbUI/src/Camera.cpp" "CMakeFiles/webcamera.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/webcamera.dir/src/Camera.cpp.o.d"
+  "/tmp/tmp.XeUZuktbUI/src/HttpClient.cpp" "CMakeFiles/webcamera.dir/src/HttpClient.cpp.o" "gcc" "CMakeFiles/webcamera.dir/src/HttpClient.cpp.o.d"
   "/tmp/tmp.XeUZuktbUI/src/ObjectDetectionModel.cpp" "CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o" "gcc" "CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o.d"
   "/tmp/tmp.XeUZuktbUI/src/SocketServer.cpp" "CMakeFiles/webcamera.dir/src/SocketServer.cpp.o" "gcc" "CMakeFiles/webcamera.dir/src/SocketServer.cpp.o.d"
+  "/tmp/tmp.XeUZuktbUI/tests/test_http_client.cpp" "CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o" "gcc" "CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

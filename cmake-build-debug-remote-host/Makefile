@@ -177,6 +177,30 @@ src/Camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/Camera.cpp.s
 .PHONY : src/Camera.cpp.s
 
+src/HttpClient.o: src/HttpClient.cpp.o
+.PHONY : src/HttpClient.o
+
+# target to build an object file
+src/HttpClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/HttpClient.cpp.o
+.PHONY : src/HttpClient.cpp.o
+
+src/HttpClient.i: src/HttpClient.cpp.i
+.PHONY : src/HttpClient.i
+
+# target to preprocess a source file
+src/HttpClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/HttpClient.cpp.i
+.PHONY : src/HttpClient.cpp.i
+
+src/HttpClient.s: src/HttpClient.cpp.s
+.PHONY : src/HttpClient.s
+
+# target to generate assembly for a file
+src/HttpClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/HttpClient.cpp.s
+.PHONY : src/HttpClient.cpp.s
+
 src/ObjectDetectionModel.o: src/ObjectDetectionModel.cpp.o
 .PHONY : src/ObjectDetectionModel.o
 
@@ -225,6 +249,30 @@ src/SocketServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/SocketServer.cpp.s
 .PHONY : src/SocketServer.cpp.s
 
+tests/test_http_client.o: tests/test_http_client.cpp.o
+.PHONY : tests/test_http_client.o
+
+# target to build an object file
+tests/test_http_client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o
+.PHONY : tests/test_http_client.cpp.o
+
+tests/test_http_client.i: tests/test_http_client.cpp.i
+.PHONY : tests/test_http_client.i
+
+# target to preprocess a source file
+tests/test_http_client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/tests/test_http_client.cpp.i
+.PHONY : tests/test_http_client.cpp.i
+
+tests/test_http_client.s: tests/test_http_client.cpp.s
+.PHONY : tests/test_http_client.s
+
+# target to generate assembly for a file
+tests/test_http_client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/tests/test_http_client.cpp.s
+.PHONY : tests/test_http_client.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,12 +288,18 @@ help:
 	@echo "... src/Camera.o"
 	@echo "... src/Camera.i"
 	@echo "... src/Camera.s"
+	@echo "... src/HttpClient.o"
+	@echo "... src/HttpClient.i"
+	@echo "... src/HttpClient.s"
 	@echo "... src/ObjectDetectionModel.o"
 	@echo "... src/ObjectDetectionModel.i"
 	@echo "... src/ObjectDetectionModel.s"
 	@echo "... src/SocketServer.o"
 	@echo "... src/SocketServer.i"
 	@echo "... src/SocketServer.s"
+	@echo "... tests/test_http_client.o"
+	@echo "... tests/test_http_client.i"
+	@echo "... tests/test_http_client.s"
 .PHONY : help
 
 
