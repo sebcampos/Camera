@@ -1,0 +1,3 @@
+/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles/webcamera.dir
+/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles/edit_cache.dir
+/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles/rebuild_cache.dir

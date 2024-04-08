@@ -3,10 +3,6 @@
 //
 
 #include "../headers/SocketServer.h"
-#include <iostream>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <unistd.h>
 #define MB 2591 * 1944
 
 

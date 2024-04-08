@@ -3,6 +3,7 @@
 //
 
 #include "../headers/StreamCamera.h"
+#include "../headers/HttpClient.h"
 
 using namespace cv;
 
@@ -18,7 +19,17 @@ StreamCamera::StreamCamera(int cameraIndex)
      currentFrame = new Mat();
      outputFrame = Mat();
      tfLiteModel = new ObjectDetectionModel(getWidth(), getHeight());
+     setTracking(HttpClient::getTrackingList());
      std::cout << "Initialized camera and detection model" << std::endl;
+}
+
+/**
+ * Setting for the tracking list used to identify what should be tracked
+ * @param tracking vector of strings containing object labels
+ */
+void StreamCamera::setTracking(const std::vector<std::string>& tracking)
+{
+    trackingList = tracking;
 }
 
 /**
@@ -51,8 +62,8 @@ int StreamCamera::getHeight() {
 }
 
 /**
- * Returns a refrence to the current outputFrame
- * @return Mat instanc, result of object detection and video capture
+ * Returns a reference to the current outputFrame
+ * @return Mat instance, result of object detection and video capture
  */
 Mat& StreamCamera::getCurrentFrame() {
     return outputFrame;
@@ -91,6 +102,21 @@ void StreamCamera::processFeed()
         }
         tfLiteModel->processFrameInPlace(*currentFrame);
         outputFrame = currentFrame->clone();
+        for (const auto& label : trackingList)
+        {
+            if (tfLiteModel->isInFrame(label) && !recording)
+            {
+                int labelIndex = tfLiteModel->getObjectLabelIndex(label);
+                recordingLabel = label;
+                videoId = HttpClient::createObjectDetectionEvent(labelIndex);
+                recordingThread = std::thread(&StreamCamera::startRecording, this, videoId);
+            }
+            else if (recording && !tfLiteModel->isInFrame(recordingLabel))
+            {
+                stopRecording();
+            }
+
+        }
         if (stopFeedFlag)
         {
             break;
@@ -101,14 +127,18 @@ void StreamCamera::processFeed()
 
 
 /**
- *
+ * To be launches as a seperate thread, this method
+ * takes a file name and begins recording the current frame to a video file.
+ * Once the recording flag is set to false it stops
+ * @param fileName String of the file to name the video recording
  */
- void StreamCamera::startRecording(std::string fileName)
+ void StreamCamera::startRecording(const std::string& fileName)
 {
      recording = true;
+     std::cout << "started recording " << std::endl;
 
      // register object detection event
-    VideoWriter video("fileName", VideoWriter::fourcc('M','J','P','G'), 10, Size(getWidth(),getHeight()), true);
+    VideoWriter video(fileName, VideoWriter::fourcc('M','J','P','G'), 10, Size(getWidth(),getHeight()), true);
 
     // TODO start recording
      while (recording)
@@ -116,6 +146,20 @@ void StreamCamera::processFeed()
          // write frame to file
          video.write(getCurrentFrame());
      }
+}
+
+
+/**
+ * sets the recording flag to false and waits until the thread is complete.
+ */
+void StreamCamera::stopRecording()
+{
+     recording = false;
+     recordingThread.join();
+     std::cout << "stopped recording " << std::endl;
+     HttpClient::updateObjectDetectionEvent(videoId, false);
+     recordingLabel= "";
+     videoId = "";
 }
 
 /**

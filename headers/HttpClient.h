@@ -11,11 +11,14 @@
 
 #include <stdio.h>
 #include <curl/curl.h>
+#include <regex>
+#include <map>
 
 class HttpClient {
 public:
     static std::string createObjectDetectionEvent(int objectIndex);
-    static void updateObjectDetectionEvent();
+    static std::string updateObjectDetectionEvent(const std::string& eventId, bool eventOccurring);
+    static std::vector<std::string> getTrackingList();
 
 };
 

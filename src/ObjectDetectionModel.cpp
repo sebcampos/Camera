@@ -3,13 +3,8 @@
 //
 
 #include "../headers/ObjectDetectionModel.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-#include <opencv2/opencv.hpp>
-#include <algorithm>
-#include <cmath>
+
+
 
 using namespace std;
 const char* ObjectDetectionModel::modelPath = "../resources/1.tflite";
@@ -22,16 +17,34 @@ struct ObjectDetectionResult {
 };
 
 
-void ObjectDetectionModel::addToTracking(std::string label)
-{
-    tracking.emplace_back(label);
+static std::vector<std::string> loadLabels(char* labelsFile) {
+    std::ifstream file(labelsFile);
+    if (!file.is_open())
+    {
+        fprintf(stderr, "unable to open label file\n");
+        exit(-1);
+    }
+    std::string label;
+    std::vector<std::string> labels;
+
+    while (std::getline(file, label))
+    {
+        if (!label.empty())
+            labels.push_back(label);
+    }
+    file.close();
+    return labels;
 }
 
 
-void ObjectDetectionModel::removeFromTracking(std::string label)
+bool ObjectDetectionModel::isInFrame(const std::string& label)
 {
-    auto itr = std::find(tracking.begin(), tracking.end(), label);
-    if (itr != tracking.end()) tracking.erase(itr);
+    auto itr = std::find(objectsInFrame.begin(), objectsInFrame.end(), label);
+    if (itr != objectsInFrame.end())
+    {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -126,6 +139,7 @@ ObjectDetectionModel::ObjectDetectionModel(int width, int height)
     cam_height = height;
     cam_width = width;
     model = tflite::FlatBufferModel::BuildFromFile(modelPath);
+    labels = loadLabels();
     if (model == nullptr)
     {
         fprintf(stderr, "failed to load model\n");
@@ -136,7 +150,6 @@ ObjectDetectionModel::ObjectDetectionModel(int width, int height)
     tflite::ops::builtin::BuiltinOpResolver resolver;
     tflite::InterpreterBuilder(*model, resolver)(&interpreter);
     interpreter->AllocateTensors();
-    addToTracking("person");
 }
 
 
@@ -144,7 +157,6 @@ ObjectDetectionModel::ObjectDetectionModel(int width, int height)
 void ObjectDetectionModel::processFrameInPlace(cv::Mat& currentFrame)
 {
     cv::Mat frameCopy;
-    std::vector<std::string> labels = loadLabels();
     std::vector<float> locations;
     std::vector<float> classes;
 
@@ -213,6 +225,7 @@ void ObjectDetectionModel::processFrameInPlace(cv::Mat& currentFrame)
     }
     nonMaximumSuppression(objects, 0.5);
     cv::RNG rng(12345);
+    std::set<std::string> objectsDetected;
     for (auto object : objects)
     {
         auto score=object.prob;
@@ -220,32 +233,26 @@ void ObjectDetectionModel::processFrameInPlace(cv::Mat& currentFrame)
         cv::Scalar color = cv::Scalar(rng.uniform(0,255), rng.uniform(0, 255), rng.uniform(0, 255));
         auto cls = object.class_id;
         std::stringstream message;
-
-        // TODO record if label is found and not recording
         message << labels[cls+1] << ": " << std::fixed << std::setprecision(2) << score;
+        objectsDetected.emplace(labels[cls+1]);
         cv::rectangle(currentFrame, object.rec,color, 1);
         cv::putText(currentFrame, message.str(), cv::Point(object.rec.x, object.rec.y - 5),
                     cv::FONT_HERSHEY_SIMPLEX, .30, cv::Scalar(10, 255, 30));
     }
+    objectsInFrame = objectsDetected;
 
 }
 
 
-std::vector<std::string> ObjectDetectionModel::loadLabels() {
-    std::ifstream file(labelsFile);
-    if (!file.is_open())
-    {
-        fprintf(stderr, "unable to open label file\n");
-        exit(-1);
-    }
-    std::string label;
-    std::vector<std::string> labels;
 
-    while (std::getline(file, label))
+
+int ObjectDetectionModel::getObjectLabelIndex(std::string label)
+{
+    for (int i = 0; i < labels.size(); i++)
     {
-        if (!label.empty())
-            labels.push_back(label);
+        if (labels.at(i) == label)
+        {
+            return i;
+        }
     }
-    file.close();
-    return labels;
 }

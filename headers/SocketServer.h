@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <thread>
 
-
 class SocketServer {
 public:
     bool shutDown;

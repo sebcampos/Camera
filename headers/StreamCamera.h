@@ -7,6 +7,7 @@
 
 #include<opencv2/opencv.hpp>
 #include<iostream>
+#include <thread>
 #include "ObjectDetectionModel.h"
 
 using namespace cv;
@@ -19,17 +20,22 @@ class StreamCamera {
         bool recording = false;
         ObjectDetectionModel* tfLiteModel;
         bool stopFeedFlag = false;
+        std::vector<std::string> trackingList;
+        std::string videoId;
+        std::string recordingLabel;
+        std::thread recordingThread;
         int getWidth();
         int getHeight();
         void captureFrame();
     public:
-        StreamCamera(int cameraIndex);
+        explicit StreamCamera(int cameraIndex);
         ~StreamCamera();
         void processFeed();
         void stopFeed();
-        void startRecording(std::string fileName);
+        void startRecording(const std::string& fileName);
         void stopRecording();
         Mat& getCurrentFrame();
+        void setTracking(const std::vector<std::string>& tracking)
 
 };
 
