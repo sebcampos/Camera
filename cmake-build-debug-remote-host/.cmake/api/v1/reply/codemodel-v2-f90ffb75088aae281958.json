@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "webcamera::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-webcamera-Debug-83958833630be9c785d8.json",
+					"jsonFile" : "target-webcamera-Debug-a7c6164a1b8e31eb53b8.json",
 					"name" : "webcamera",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/sebash/CLionProjects/Camera/cmake-build-debug-local",
-		"source" : "/Users/sebash/CLionProjects/Camera"
+		"build" : "/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host",
+		"source" : "/tmp/tmp.XeUZuktbUI"
 	},
 	"version" : 
 	{

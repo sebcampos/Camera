@@ -50,18 +50,15 @@ int SocketServer::getAvailableConnection()
 }
 
 
-static bool handleResponse(int (&connections)[4], int streamIndex, char (&responseBuffer)[1024])
+ bool SocketServer::handleResponse(int streamIndex, char* responseBuffer)
 {
-    if (strcmp(responseBuffer, "close") == 0)
+    if (responseBuffer[0] == '\0')
     {
         connections[streamIndex] = -1;
+        std::cout << "close executed" << std::endl;
         return false;
     }
-    else if (strcmp(responseBuffer, "refresh") == 0)
-    {
-        // refresh current data
-    }
-    for (char & c : responseBuffer) {c = '\0';}
+    responseBuffer[0] =  '\0';
     return true;
 }
 
@@ -87,12 +84,12 @@ void SocketServer::startStream(int streamIndex, int clientSocket)
         delete[] char_array;
 
         recv(clientSocket, responseBuffer, sizeof(responseBuffer), 0);
-        if (!handleResponse(connections, streamIndex, responseBuffer))
+        if (!handleResponse(streamIndex, responseBuffer))
             continue;
 
         send(clientSocket, buffer.data(), buffer.size(), 0);
         recv(clientSocket, responseBuffer, sizeof(responseBuffer), 0);
-        if (!handleResponse(connections, streamIndex, responseBuffer))
+        if (!handleResponse(streamIndex, responseBuffer))
             continue;
     }
     std::cout << "disconnecting client at index `" << streamIndex << "`" << std::endl;
@@ -127,6 +124,10 @@ void SocketServer::run()
             }
             threads[newConnectionIndex] = new std::thread(&SocketServer::startStream, this, newConnectionIndex, clientSocket);
 
+        }
+        else if (strcmp(buffer, "refresh") == 0)
+        {
+            camera->refreshTrackingList();
         }
         else if (strcmp(buffer, "shutDown") == 0)
         {

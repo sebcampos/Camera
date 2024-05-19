@@ -1,7 +1,7 @@
 CMakeFiles/webcamera.dir/src/SocketServer.cpp.o: \
  /tmp/tmp.XeUZuktbUI/src/SocketServer.cpp /usr/include/stdc-predef.h \
  /tmp/tmp.XeUZuktbUI/src/../headers/SocketServer.h \
- /tmp/tmp.XeUZuktbUI/src/../headers/Camera.h \
+ /tmp/tmp.XeUZuktbUI/src/../headers/StreamCamera.h \
  /usr/local/include/opencv4/opencv2/opencv.hpp \
  /usr/local/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/local/include/opencv4/opencv2/core.hpp \
@@ -364,6 +364,8 @@ CMakeFiles/webcamera.dir/src/SocketServer.cpp.o: \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
+ /usr/include/c++/13/thread /usr/include/c++/13/bits/std_thread.h \
+ /usr/include/c++/13/bits/this_thread_sleep.h \
  /tmp/tmp.XeUZuktbUI/src/../headers/ObjectDetectionModel.h \
  /home/sebash/tflite-dist/include/tensorflow/lite/interpreter.h \
  /home/sebash/tflite-dist/include/tensorflow/lite/core/interpreter.h \
@@ -466,6 +468,4 @@ CMakeFiles/webcamera.dir/src/SocketServer.cpp.o: \
  /usr/include/aarch64-linux-gnu/asm/sockios.h \
  /usr/include/asm-generic/sockios.h \
  /usr/include/aarch64-linux-gnu/bits/types/struct_osockaddr.h \
- /usr/include/aarch64-linux-gnu/bits/in.h /usr/include/c++/13/thread \
- /usr/include/c++/13/bits/std_thread.h \
- /usr/include/c++/13/bits/this_thread_sleep.h
+ /usr/include/aarch64-linux-gnu/bits/in.h

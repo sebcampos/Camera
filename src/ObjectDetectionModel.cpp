@@ -17,7 +17,7 @@ struct ObjectDetectionResult {
 };
 
 
-static std::vector<std::string> loadLabels(char* labelsFile) {
+static std::vector<std::string> loadLabels(const char* labelsFile) {
     std::ifstream file(labelsFile);
     if (!file.is_open())
     {
@@ -39,6 +39,10 @@ static std::vector<std::string> loadLabels(char* labelsFile) {
 
 bool ObjectDetectionModel::isInFrame(const std::string& label)
 {
+//    for (std::string s : objectsInFrame)
+//    {
+//        std::cout << s << std::endl;
+//    }
     auto itr = std::find(objectsInFrame.begin(), objectsInFrame.end(), label);
     if (itr != objectsInFrame.end())
     {
@@ -139,7 +143,7 @@ ObjectDetectionModel::ObjectDetectionModel(int width, int height)
     cam_height = height;
     cam_width = width;
     model = tflite::FlatBufferModel::BuildFromFile(modelPath);
-    labels = loadLabels();
+    labels = loadLabels(labelsFile);
     if (model == nullptr)
     {
         fprintf(stderr, "failed to load model\n");
@@ -255,4 +259,5 @@ int ObjectDetectionModel::getObjectLabelIndex(std::string label)
             return i;
         }
     }
+    return -1;
 }

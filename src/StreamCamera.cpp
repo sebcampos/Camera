@@ -19,7 +19,12 @@ StreamCamera::StreamCamera(int cameraIndex)
      currentFrame = new Mat();
      outputFrame = Mat();
      tfLiteModel = new ObjectDetectionModel(getWidth(), getHeight());
-     setTracking(HttpClient::getTrackingList());
+     refreshTrackingList();
+     std::cout << "Init tracking list: " << std::endl;
+     for (const std::string& t : trackingList)
+     {
+         std::cout << "\t" << t << std::endl;
+     }
      std::cout << "Initialized camera and detection model" << std::endl;
 }
 
@@ -27,9 +32,9 @@ StreamCamera::StreamCamera(int cameraIndex)
  * Setting for the tracking list used to identify what should be tracked
  * @param tracking vector of strings containing object labels
  */
-void StreamCamera::setTracking(const std::vector<std::string>& tracking)
+void StreamCamera::refreshTrackingList()
 {
-    trackingList = tracking;
+    trackingList = HttpClient::getTrackingList();
 }
 
 /**
@@ -50,7 +55,7 @@ StreamCamera::~StreamCamera()
  * @return integer
  */
 int StreamCamera::getWidth() {
-    return (int)vidCap.get(CAP_PROP_FRAME_WIDTH) / 5;
+    return (int)vidCap.get(CAP_PROP_FRAME_WIDTH) / 4;
 }
 
 /**
@@ -58,7 +63,7 @@ int StreamCamera::getWidth() {
  * @return integer
  */
 int StreamCamera::getHeight() {
-    return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT) / 5;
+    return (int)vidCap.get(CAP_PROP_FRAME_HEIGHT) / 4;
 }
 
 /**
@@ -106,9 +111,11 @@ void StreamCamera::processFeed()
         {
             if (tfLiteModel->isInFrame(label) && !recording)
             {
+                std::cout << "STARTING RECORDING" << std::endl;
                 int labelIndex = tfLiteModel->getObjectLabelIndex(label);
                 recordingLabel = label;
                 videoId = HttpClient::createObjectDetectionEvent(labelIndex);
+                std::cout << videoId << std::endl;
                 recordingThread = std::thread(&StreamCamera::startRecording, this, videoId);
             }
             else if (recording && !tfLiteModel->isInFrame(recordingLabel))
@@ -134,18 +141,21 @@ void StreamCamera::processFeed()
  */
  void StreamCamera::startRecording(const std::string& fileName)
 {
-     recording = true;
-     std::cout << "started recording " << std::endl;
+    recording = true;
+    std::cout << "started recording " << std::endl;
+    std::string file = fileName + ".avi";
+    // register object detection event
+    VideoWriter output(file, VideoWriter::fourcc('P','I','M','1'), 30, Size(getWidth(),getHeight()), true);
 
-     // register object detection event
-    VideoWriter video(fileName, VideoWriter::fourcc('M','J','P','G'), 10, Size(getWidth(),getHeight()), true);
-
-    // TODO start recording
-     while (recording)
-     {
-         // write frame to file
-         video.write(getCurrentFrame());
-     }
+    while (recording)
+    {
+     Mat frame = outputFrame.clone();
+     output.write(frame);
+    }
+    output.release();
+    std::string scpCommand = "scp " + file + " sebash@cameraserver.local:/home/sebash/DjangoNinjaExtraFun/RestAPI/WebCamAPI/videologs/" + file;
+    std::string command = "eval `ssh-agent`; ssh-add /home/sebash/.ssh/cameraserver; " + scpCommand + "; kill $SSH_AGENT_PID;";
+    system(command.c_str());
 }
 
 

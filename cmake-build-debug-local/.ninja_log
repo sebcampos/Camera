@@ -1,9 +1,2 @@
 # ninja log v5
-0	293	1712546605437513259	build.ninja	bfc1a11aebd0ea85
-9	860	1712291065484867060	CMakeFiles/webcamera.dir/tests/test_http_client.cpp.o	186da3d3e81e0222
-8	1859	1712531899967529320	CMakeFiles/webcamera.dir/src/HttpClient.cpp.o	1540a2443db7ff32
-9	3511	1712531121700910238	CMakeFiles/webcamera.dir/main.cpp.o	b45cefc685dab699
-1859	1925	1712531900036721598	webcamera	bdfcd5d3cff741d8
-1	4294	1712294443433498082	CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o	2730cac6246bc2a2
-1	4110	1712294443243626063	CMakeFiles/webcamera.dir/src/SocketServer.cpp.o	61f845a6f1eb752f
-1	4018	1712294443152358047	CMakeFiles/webcamera.dir/src/Camera.cpp.o	9e7617004ba780a9
+2	1928	1716090576736620645	CMakeFiles/webcamera.dir/src/HttpClient.cpp.o	89a0be3b5b107780

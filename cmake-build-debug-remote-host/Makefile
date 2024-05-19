@@ -153,30 +153,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/Camera.o: src/Camera.cpp.o
-.PHONY : src/Camera.o
-
-# target to build an object file
-src/Camera.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/Camera.cpp.o
-.PHONY : src/Camera.cpp.o
-
-src/Camera.i: src/Camera.cpp.i
-.PHONY : src/Camera.i
-
-# target to preprocess a source file
-src/Camera.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/Camera.cpp.i
-.PHONY : src/Camera.cpp.i
-
-src/Camera.s: src/Camera.cpp.s
-.PHONY : src/Camera.s
-
-# target to generate assembly for a file
-src/Camera.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/Camera.cpp.s
-.PHONY : src/Camera.cpp.s
-
 src/HttpClient.o: src/HttpClient.cpp.o
 .PHONY : src/HttpClient.o
 
@@ -249,6 +225,30 @@ src/SocketServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/SocketServer.cpp.s
 .PHONY : src/SocketServer.cpp.s
 
+src/StreamCamera.o: src/StreamCamera.cpp.o
+.PHONY : src/StreamCamera.o
+
+# target to build an object file
+src/StreamCamera.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o
+.PHONY : src/StreamCamera.cpp.o
+
+src/StreamCamera.i: src/StreamCamera.cpp.i
+.PHONY : src/StreamCamera.i
+
+# target to preprocess a source file
+src/StreamCamera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/StreamCamera.cpp.i
+.PHONY : src/StreamCamera.cpp.i
+
+src/StreamCamera.s: src/StreamCamera.cpp.s
+.PHONY : src/StreamCamera.s
+
+# target to generate assembly for a file
+src/StreamCamera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/webcamera.dir/build.make CMakeFiles/webcamera.dir/src/StreamCamera.cpp.s
+.PHONY : src/StreamCamera.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -261,9 +261,6 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/Camera.o"
-	@echo "... src/Camera.i"
-	@echo "... src/Camera.s"
 	@echo "... src/HttpClient.o"
 	@echo "... src/HttpClient.i"
 	@echo "... src/HttpClient.s"
@@ -273,6 +270,9 @@ help:
 	@echo "... src/SocketServer.o"
 	@echo "... src/SocketServer.i"
 	@echo "... src/SocketServer.s"
+	@echo "... src/StreamCamera.o"
+	@echo "... src/StreamCamera.i"
+	@echo "... src/StreamCamera.s"
 .PHONY : help
 
 

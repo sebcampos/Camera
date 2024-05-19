@@ -94,7 +94,7 @@ std::vector<std::string> HttpClient::getTrackingList()
     slist1 = curl_slist_append(slist1, "Content-Type: application/json");
 
     hnd = curl_easy_init();
-    curl_easy_setopt(hnd, CURLOPT_URL, "http://127.0.0.1:8000/api/cam/track");
+    curl_easy_setopt(hnd, CURLOPT_URL, "http://cameraserver.local/api/cam/track");
     // curl_easy_setopt(hnd, CURLOPT_URL, "http://cameraserver.local/api/cam/events");
     curl_easy_setopt(hnd, CURLOPT_NOPROGRESS, 1L);
     curl_easy_setopt(hnd, CURLOPT_USERAGENT, "curl/7.38.0");
@@ -118,20 +118,21 @@ std::vector<std::string> HttpClient::getTrackingList()
 
 std::string HttpClient::createObjectDetectionEvent(int objectIndex)
 {
-    std::ostringstream payload;
-    payload << "{\"object_index\": " << objectIndex << "}";
+    // std::ostringstream payload;
+    // payload << "{\"object_index\": " << objectIndex << "}";
+    std::string payload = "{\"object_index\": " + std::to_string(objectIndex) + "}";
     CURLcode ret;
     CURL *hnd;
     struct curl_slist *slist1;
     std::string readBuffer;
     slist1 = NULL;
     slist1 = curl_slist_append(slist1, "Content-Type: application/json");
-
+    //std::cout << payload.str() << std::endl;
     hnd = curl_easy_init();
-    curl_easy_setopt(hnd, CURLOPT_URL, "http://127.0.0.1:8000/api/cam/events/");
+    curl_easy_setopt(hnd, CURLOPT_URL, "http://cameraserver.local/api/cam/events/");
     // curl_easy_setopt(hnd, CURLOPT_URL, "http://cameraserver.local/api/cam/events");
     curl_easy_setopt(hnd, CURLOPT_NOPROGRESS, 1L);
-    curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, payload.str().c_str());
+    curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, payload.c_str());
     curl_easy_setopt(hnd, CURLOPT_USERAGENT, "curl/7.38.0");
     curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, slist1);
     curl_easy_setopt(hnd, CURLOPT_MAXREDIRS, 50L);
@@ -148,25 +149,25 @@ std::string HttpClient::createObjectDetectionEvent(int objectIndex)
     curl_slist_free_all(slist1);
     slist1 = NULL;
     std::map<std::string, std::string> res = parseJsonObject(readBuffer);
+    std::cout << res["event_id"] << std::endl;
     return res["event_id"];
 }
 
 std::string HttpClient::updateObjectDetectionEvent(const std:: string& eventId, bool eventOccurring)
 {
-    std::ostringstream payload;
-    payload << "{\"event_occuring\": " << eventOccurring << "}";
+    std::string payload =  "{\"event_occuring\": " + std::to_string(eventOccurring) + "}";
     CURLcode ret;
     CURL *hnd;
     struct curl_slist *slist1;
     std::string readBuffer;
     slist1 = NULL;
     slist1 = curl_slist_append(slist1, "Content-Type: application/json");
-    std::string url = "http://127.0.0.1:8000/api/cam/events/" + eventId + "/";
+    std::string url = "http://cameraserver.local/api/cam/events/" + eventId + "/";
     hnd = curl_easy_init();
     curl_easy_setopt(hnd, CURLOPT_URL, url.c_str());
     // curl_easy_setopt(hnd, CURLOPT_URL, "http://cameraserver.local/api/cam/events");
     curl_easy_setopt(hnd, CURLOPT_NOPROGRESS, 1L);
-    curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, payload.str().c_str());
+    curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, payload.c_str());
     curl_easy_setopt(hnd, CURLOPT_USERAGENT, "curl/7.38.0");
     curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, slist1);
     curl_easy_setopt(hnd, CURLOPT_MAXREDIRS, 50L);

@@ -83,19 +83,19 @@ CMakeFiles/webcamera.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/webcamera.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.XeUZuktbUI/main.cpp -o CMakeFiles/webcamera.dir/main.cpp.s
 
-CMakeFiles/webcamera.dir/src/Camera.cpp.o: CMakeFiles/webcamera.dir/flags.make
-CMakeFiles/webcamera.dir/src/Camera.cpp.o: /tmp/tmp.XeUZuktbUI/src/Camera.cpp
-CMakeFiles/webcamera.dir/src/Camera.cpp.o: CMakeFiles/webcamera.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/webcamera.dir/src/Camera.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webcamera.dir/src/Camera.cpp.o -MF CMakeFiles/webcamera.dir/src/Camera.cpp.o.d -o CMakeFiles/webcamera.dir/src/Camera.cpp.o -c /tmp/tmp.XeUZuktbUI/src/Camera.cpp
+CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o: CMakeFiles/webcamera.dir/flags.make
+CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o: /tmp/tmp.XeUZuktbUI/src/StreamCamera.cpp
+CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o: CMakeFiles/webcamera.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o -MF CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o.d -o CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o -c /tmp/tmp.XeUZuktbUI/src/StreamCamera.cpp
 
-CMakeFiles/webcamera.dir/src/Camera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/webcamera.dir/src/Camera.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.XeUZuktbUI/src/Camera.cpp > CMakeFiles/webcamera.dir/src/Camera.cpp.i
+CMakeFiles/webcamera.dir/src/StreamCamera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/webcamera.dir/src/StreamCamera.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /tmp/tmp.XeUZuktbUI/src/StreamCamera.cpp > CMakeFiles/webcamera.dir/src/StreamCamera.cpp.i
 
-CMakeFiles/webcamera.dir/src/Camera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/webcamera.dir/src/Camera.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.XeUZuktbUI/src/Camera.cpp -o CMakeFiles/webcamera.dir/src/Camera.cpp.s
+CMakeFiles/webcamera.dir/src/StreamCamera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/webcamera.dir/src/StreamCamera.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /tmp/tmp.XeUZuktbUI/src/StreamCamera.cpp -o CMakeFiles/webcamera.dir/src/StreamCamera.cpp.s
 
 CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o: CMakeFiles/webcamera.dir/flags.make
 CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o: /tmp/tmp.XeUZuktbUI/src/ObjectDetectionModel.cpp
@@ -142,7 +142,7 @@ CMakeFiles/webcamera.dir/src/HttpClient.cpp.s: cmake_force
 # Object files for target webcamera
 webcamera_OBJECTS = \
 "CMakeFiles/webcamera.dir/main.cpp.o" \
-"CMakeFiles/webcamera.dir/src/Camera.cpp.o" \
+"CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o" \
 "CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o" \
 "CMakeFiles/webcamera.dir/src/SocketServer.cpp.o" \
 "CMakeFiles/webcamera.dir/src/HttpClient.cpp.o"
@@ -151,7 +151,7 @@ webcamera_OBJECTS = \
 webcamera_EXTERNAL_OBJECTS =
 
 webcamera: CMakeFiles/webcamera.dir/main.cpp.o
-webcamera: CMakeFiles/webcamera.dir/src/Camera.cpp.o
+webcamera: CMakeFiles/webcamera.dir/src/StreamCamera.cpp.o
 webcamera: CMakeFiles/webcamera.dir/src/ObjectDetectionModel.cpp.o
 webcamera: CMakeFiles/webcamera.dir/src/SocketServer.cpp.o
 webcamera: CMakeFiles/webcamera.dir/src/HttpClient.cpp.o

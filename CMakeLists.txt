@@ -23,7 +23,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(webcamera
         main.cpp
-        src/Camera.cpp
+        src/StreamCamera.cpp
         src/ObjectDetectionModel.cpp
         src/SocketServer.cpp
         src/HttpClient.cpp)

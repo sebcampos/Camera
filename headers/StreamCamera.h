@@ -14,9 +14,9 @@ using namespace cv;
 
 class StreamCamera {
     private:
-        VideoCapture vidCap;
-        Mat* currentFrame;
-        Mat outputFrame;
+        VideoCapture vidCap{};
+        Mat* currentFrame{};
+        Mat outputFrame{};
         bool recording = false;
         ObjectDetectionModel* tfLiteModel;
         bool stopFeedFlag = false;
@@ -36,6 +36,7 @@ class StreamCamera {
         void stopRecording();
         Mat& getCurrentFrame();
         void setTracking(const std::vector<std::string>& tracking);
+        void refreshTrackingList();
 
 };
 

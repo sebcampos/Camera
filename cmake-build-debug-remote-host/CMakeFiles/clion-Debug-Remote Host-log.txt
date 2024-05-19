@@ -22,6 +22,6 @@ CMake Deprecation Warning:
 -- Detecting CXX compile features - done
 -- Found OpenCV: /usr/local (found version "4.9.0") 
 -- Found CURL: /usr/lib/aarch64-linux-gnu/libcurl.so (found version "8.2.1")  
--- Configuring done (3.7s)
+-- Configuring done (3.6s)
 -- Generating done (0.0s)
 -- Build files have been written to: /tmp/tmp.XeUZuktbUI/cmake-build-debug-remote-host

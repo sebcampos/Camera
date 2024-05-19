@@ -18,6 +18,7 @@ public:
     bool shutDown;
     int serverSocket;
     int connections[4] = {-1, -1, -1, -1};
+    bool handleResponse(int streamIndex, char* responseBuffer);
     std::thread* threads[4];
     StreamCamera* camera;
     sockaddr_in serverAddress{};
