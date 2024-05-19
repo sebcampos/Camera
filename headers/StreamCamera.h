@@ -35,7 +35,7 @@ class StreamCamera {
         void startRecording(const std::string& fileName);
         void stopRecording();
         Mat& getCurrentFrame();
-        void setTracking(const std::vector<std::string>& tracking)
+        void setTracking(const std::vector<std::string>& tracking);
 
 };
 
