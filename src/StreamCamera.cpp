@@ -105,6 +105,7 @@ void StreamCamera::processFeed()
         {
             break;
         }
+//        outputFrame = currentFrame->clone();
         tfLiteModel->processFrameInPlace(*currentFrame);
         outputFrame = currentFrame->clone();
         for (const auto& label : trackingList)
@@ -149,8 +150,8 @@ void StreamCamera::processFeed()
 
     while (recording)
     {
-     Mat frame = outputFrame.clone();
-     output.write(frame);
+         Mat frame = outputFrame.clone();
+         output.write(frame);
     }
     output.release();
     std::string scpCommand = "scp " + file + " sebash@cameraserver.local:/home/sebash/DjangoNinjaExtraFun/RestAPI/WebCamAPI/videologs/" + file;

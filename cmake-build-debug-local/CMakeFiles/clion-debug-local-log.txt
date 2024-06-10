@@ -16,6 +16,6 @@ CMake Warning at CMakeLists.txt:5 (find_package):
   installed.
 
 
--- Configuring done (0.3s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /Users/sebash/CLionProjects/Camera/cmake-build-debug-local
