@@ -15,7 +15,6 @@ using namespace cv;
 class StreamCamera {
     private:
         VideoCapture vidCap{};
-        Mat* currentFrame{};
         Mat outputFrame{};
         bool recording = false;
         ObjectDetectionModel* tfLiteModel;
@@ -29,6 +28,7 @@ class StreamCamera {
         void captureFrame();
     public:
         explicit StreamCamera(int cameraIndex);
+        Mat* currentFrame{};
         ~StreamCamera();
         void processFeed();
         void stopFeed();

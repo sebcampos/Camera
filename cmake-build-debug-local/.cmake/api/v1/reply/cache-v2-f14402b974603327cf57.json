@@ -1194,6 +1194,18 @@
 			"value" : "[/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/lib/libcurl.tbd][/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include][c ][v8.6.0()]"
 		},
 		{
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_OpenCV",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Details about finding OpenCV"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "[/usr/local/Cellar/opencv/4.9.0_9][v4.9.0()]"
+		},
+		{
 			"name" : "OpenCV_DIR",
 			"properties" : 
 			[
@@ -1203,7 +1215,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "OpenCV_DIR-NOTFOUND"
+			"value" : "/usr/local/lib/cmake/opencv4"
 		},
 		{
 			"name" : "PC_CURL_CFLAGS",

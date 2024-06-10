@@ -80,7 +80,7 @@ Mat& StreamCamera::getCurrentFrame() {
  */
 void StreamCamera::captureFrame() {
     vidCap >> *currentFrame;
-    resize(*currentFrame, *currentFrame, Size(getWidth(), getHeight()));
+    //resize(*currentFrame, *currentFrame, Size(getWidth(), getHeight()));
 //    cvtColor(*currentFrame, *currentFrame, COLOR_BGR2RGB);
 }
 
@@ -103,32 +103,33 @@ void StreamCamera::processFeed()
         captureFrame();
         if (currentFrame->empty())
         {
+            std::cout << "CAMERA ENDED" << std::endl;
             break;
         }
 //        outputFrame = currentFrame->clone();
-        tfLiteModel->processFrameInPlace(*currentFrame);
+        // tfLiteModel->processFrameInPlace(*currentFrame);
         outputFrame = currentFrame->clone();
-        for (const auto& label : trackingList)
-        {
-            if (tfLiteModel->isInFrame(label) && !recording)
-            {
-                std::cout << "STARTING RECORDING" << std::endl;
-                int labelIndex = tfLiteModel->getObjectLabelIndex(label);
-                recordingLabel = label;
-                videoId = HttpClient::createObjectDetectionEvent(labelIndex);
-                std::cout << videoId << std::endl;
-                recordingThread = std::thread(&StreamCamera::startRecording, this, videoId);
-            }
-            else if (recording && !tfLiteModel->isInFrame(recordingLabel))
-            {
-                stopRecording();
-            }
-
-        }
-        if (stopFeedFlag)
-        {
-            break;
-        }
+//        for (const auto& label : trackingList)
+//        {
+//            if (tfLiteModel->isInFrame(label) && !recording)
+//            {
+//                std::cout << "STARTING RECORDING" << std::endl;
+//                int labelIndex = tfLiteModel->getObjectLabelIndex(label);
+//                recordingLabel = label;
+//                videoId = HttpClient::createObjectDetectionEvent(labelIndex);
+//                std::cout << videoId << std::endl;
+//                recordingThread = std::thread(&StreamCamera::startRecording, this, videoId);
+//            }
+//            else if (recording && !tfLiteModel->isInFrame(recordingLabel))
+//            {
+//                stopRecording();
+//            }
+//
+//        }
+//        if (stopFeedFlag)
+//        {
+//            break;
+//        }
 
     }
 }
